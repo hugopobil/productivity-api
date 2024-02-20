@@ -1,8 +1,9 @@
 require('dotenv').config();
+
 const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const createError = require('http-errors');
 const { StatusCodes } = require('http-status-codes');
@@ -44,7 +45,9 @@ app.use((error, req, res, next) => {
   } else if (!error.status) {
     error = createError(500);
   }
+
   const data = {};
+
   data.message = error.message;
   data.errors = error.errors
     ? Object.keys(error.errors).reduce((errors, key) => {
@@ -60,5 +63,5 @@ app.use((error, req, res, next) => {
 // Arranque del servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`App started on port: ${PORT}`);
+  console.log(`App started on port: ${PORT} 🔥🔥`);
 })

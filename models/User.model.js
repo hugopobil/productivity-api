@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt'); 
+
+const ROUNDS = 10;
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -39,6 +42,28 @@ const userSchema = new Schema(
     },
   }
 );
+
+//Metodo para comparat las passwords
+
+userSchema.methods.checkPassword = function (passwordToCompare) {
+  return bcrypt.compare(passwordToCompare, this.password);
+};
+
+//PreSave de la password hasheada
+
+userSchema.pre("save", function (next) {
+  if (this.isModified("password")) {
+    bcrypt
+      .hash(this.password, ROUNDS)
+      .then((hash) => {
+        this.password = hash;
+        next();
+      })
+      .catch(next);
+  } else {
+    next();
+  }
+});
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
