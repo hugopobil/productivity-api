@@ -1,4 +1,4 @@
-const Comment = require('./models/comment.model');
+const Comment = require('../models/Comment.model');
 
 const { StatusCodes } = require('http-status-codes');
 const createError = require('http-errors');
