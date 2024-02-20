@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
+
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt'); 
 
 const ROUNDS = 10;
 
+
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-const userSchema = new Schema(
+const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
