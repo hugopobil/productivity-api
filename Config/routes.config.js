@@ -10,7 +10,8 @@ const chatController = require('../Controllers/chat.controller');
 router.post('/login', authController.login)
 
 // routes
-router.get("/users", authMiddleware.isAuthenticated, userController.getUsers);
+// router.get("/users", authMiddleware.isAuthenticated, userController.getUsers);
+router.get("/users", userController.getUsers);
 router.post("/users/create", userController.createUser);
 
 // post routes

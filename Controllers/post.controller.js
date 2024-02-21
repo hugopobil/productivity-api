@@ -3,18 +3,18 @@ const Post = require("../models/Post.model");
 const { StatusCodes } = require("http-status-codes");
 const createError = require("http-errors");
 
-module.exports.getPosts = async (req, res, next) => {
+module.exports.getPosts = (req, res, next) => {
   Post.find()
-    .populate("comments")
+    // .populate("comments")
     .populate("user")
-    .exec()
+    // .exec()
     .then((posts) => {
       res.status(200).json(posts);
     })
     .catch(next);
 };
 
-module.exports.createPost = async (req, res, next) => {
+module.exports.createPost = (req, res, next) => {
   const postToCreate = {
     ...req.body,
   };
@@ -26,7 +26,7 @@ module.exports.createPost = async (req, res, next) => {
     .catch(next);
 };
 
-module.exports.getPost = async (req, res, next) => {
+module.exports.getPost = (req, res, next) => {
   const { id } = req.params;
 
   Post.findById(id)
