@@ -28,5 +28,20 @@ module.exports.createUser = (req, res, next) => {
     .catch(next);
 };
 
+const getUser = (id, req, res, next) => {
+  User.findById(id)
+    .then((user) => {
+      res.json(user)
+    })
+    .catch(next)
+}
 
+module.exports.getCurrentUser = (req, res, next) => {
+  console.log(req.currentUserId)
+  getUser(req.currentUserId, req, res, next);
+}
+
+module.exports.getUser = (req, res, next) => {
+  getUser(req.params.id, req, res, next)
+}
 

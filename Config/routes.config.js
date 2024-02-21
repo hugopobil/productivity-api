@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const userController = require('../controllers/users.controller');
+const usersController = require('../controllers/users.controller');
 const authController = require('../Controllers/auth.controller');
 const authMiddleware = require('../Middlewares/auth.middleware');
 const postController = require('../Controllers/post.controller');
@@ -10,8 +10,9 @@ const chatController = require('../Controllers/chat.controller');
 router.post('/login', authController.login)
 
 // routes
-router.get("/users", authMiddleware.isAuthenticated, userController.getUsers);
-router.post("/users/create", userController.createUser);
+router.get('/users/me', authMiddleware.isAuthenticated, usersController.getCurrentUser);
+router.get("/users", authMiddleware.isAuthenticated, usersController.getUsers);
+router.post("/users/create", usersController.createUser);
 
 // post routes
 router.get("/posts", postController.getPosts);
