@@ -20,6 +20,8 @@ module.exports.isAuthenticated = (req, res, next) => {
         return next(createError(StatusCodes.UNAUTHORIZED, "A token must be provided"));
     }
 
+    console.log(token)
+
     jwt.verify(
         token, 
         process.env.JWT_SECRET || 'test',
@@ -28,7 +30,7 @@ module.exports.isAuthenticated = (req, res, next) => {
                 return next(err);
             }
 
-            req.currenUserId = decodedToken.id 
+            req.currentUserId = decodedToken.id 
             next();
         }
     )
