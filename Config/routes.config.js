@@ -18,6 +18,7 @@ router.post("/users/create", usersController.createUser);
 router.get("/posts", postController.getPosts);
 router.post("/posts/create", postController.createPost);
 router.get("/posts/:id", postController.getPost);
+router.put("/posts/:id", postController.updatePost);
 
 // comments
 router.get("/comments", commentController.getComments);

@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
     "start": "node app.js",
-    "post_seed": "node bin/Posts.seeds.js"
+    "posts_seed": "node bin/Posts.seeds.js"
   },
   "author": "",
   "license": "ISC",

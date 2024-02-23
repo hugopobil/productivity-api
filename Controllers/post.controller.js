@@ -42,6 +42,25 @@ module.exports.getPost = (req, res, next) => {
     .catch(next);
 };
 
+module.exports.updatePost = (req, res, next) => {
+  const { id } = req.params;
+  const postToUpdate = {
+    ...req.body, 
+  };
+
+  Post.findByIdAndUpdate(id, postToUpdate, { new: false })
+    .then((post) => {
+      if (!post) {
+        throw createError(
+          StatusCodes.NOT_FOUND,
+          `Post with id ${id} not found`
+        );
+      }
+      res.status(200).json(post);
+    })
+    .catch(next);
+};
+
 // module.exports.displayPosts = (req, res, next) => {
 //   return Post.find()
 //     .populate("comments")
