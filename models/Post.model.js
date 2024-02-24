@@ -14,13 +14,9 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // user: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "User",
-    //   required: true,
-    // },
     user: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     image: {
@@ -31,12 +27,6 @@ const postSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    likes: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
     comments: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -47,6 +37,7 @@ const postSchema = new mongoose.Schema(
   {
     timestamps: true,
     toJSON: {
+      virtuals: true,
       transform: function (doc, ret) {
         ret.id = ret._id;
         delete ret._id;
@@ -55,6 +46,13 @@ const postSchema = new mongoose.Schema(
     },
   }
 );
+
+postSchema.virtual("likes", {
+  ref: "Like",
+  localField: "_id",
+  foreignField: "post",
+  justOne: false,
+});
 
 const Post = mongoose.model("Post", postSchema);
 

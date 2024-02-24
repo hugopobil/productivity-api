@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Post = require("../models/Post.model");
+const Like = require("../models/Like.model");
 
 // Connect to the database
 mongoose
@@ -15,10 +16,9 @@ mongoose
       title: "Post 1",
       content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       location: "New York",
-      user: "hugopobil",
+      user: "65d9e33e046be78a3ac899af",
       image: "https://picsum.photos/200/300",
       createdAt: new Date(),
-      likes: 0,
       comments: [],
     };
 
@@ -38,9 +38,19 @@ mongoose
         console.log("Posts deleted successfully");
         // Rest of the code...
         Post.insertMany(posts)
-          .then(() => {
+          .then((createdPosts) => {
             console.log("Posts created successfully");
-            mongoose.connection.close();
+            const likesPromises = createdPosts.map(post => Like.create({ user: "65d9e33e046be78a3ac899af", post: post._id}))
+
+            Promise.all(likesPromises)
+              .then(() => {
+                console.log("Likes created successfully");
+                mongoose.connection.close();
+              })
+              .catch((error) => {
+                console.error("Error creating likes:", error);
+                mongoose.connection.close();
+              });
           })
           .catch((error) => {
             console.error("Error creating posts:", error);

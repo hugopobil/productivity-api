@@ -35,6 +35,7 @@ const userSchema = new mongoose.Schema(
   {
     timestamps: true,
     toJSON: {
+      virtuals: true,
       transform: function (doc, ret) {
         ret.id = ret._id;
         delete ret._id;
@@ -44,6 +45,13 @@ const userSchema = new mongoose.Schema(
     },
   }
 );
+
+userSchema.virtual("likes", {
+  ref: "Like",
+  localField: "_id",
+  foreignField: "user",
+  justOne: false,
+});
 
 //Metodo para comparat las passwords
 

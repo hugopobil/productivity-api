@@ -17,9 +17,10 @@ router.post("/users/create", usersController.createUser);
 
 // post routes
 router.get("/posts", postController.getPosts);
-router.post("/posts/create", postController.createPost);
+router.post("/posts/createNewPost", authMiddleware.isAuthenticated, postController.createPost);
 router.get("/posts/:id", postController.getPost);
 router.put("/posts/:id", postController.updatePost);
+router.post("/posts/like/:postId", authMiddleware.isAuthenticated,  postController.likePost);
 
 // comments
 router.get("/comments", commentController.getComments);

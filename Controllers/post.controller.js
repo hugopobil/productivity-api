@@ -1,24 +1,52 @@
 const Post = require("../models/Post.model");
+const Like = require("../models/Like.model");
+const User = require("../models/User.model");
 
 const { StatusCodes } = require("http-status-codes");
 const createError = require("http-errors");
 
+
 module.exports.getPosts = (req, res, next) => {
   Post.find()
-    // .populate("comments")
     .populate("user")
+    .populate({
+      path: "likes",
+      populate: {
+        path: "user",
+      },
+    })
     // .exec()
     .then((posts) => {
+      console.log(posts.title)
       res.status(200).json(posts);
     })
     .catch(next);
 };
 
+
+module.exports.likePost = (req, res, next) => {
+  Like.findOne({ user: req.currentUserId, post: req.params.postId })
+    .then((like) => {
+      if (like) {
+        Like.deleteOne({user: req.currentUserId, post: req.params.postId})
+          .then(() => {
+            res.json('like removed')
+          })
+      } else {
+        Like.create({user: req.currentUserId, post: req.params.postId})
+          .then(() => {
+            res.json('like added')
+          })
+      }
+    })
+};
+
+
 module.exports.createPost = (req, res, next) => {
   const postToCreate = {
     ...req.body,
   };
-
+  
   Post.create(postToCreate)
     .then((post) => {
       res.status(201).json(post);

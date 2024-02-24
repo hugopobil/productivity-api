@@ -1,4 +1,5 @@
 const User = require("../models/User.model");
+const Like = require("../models/Like.model");
 const { StatusCodes } = require("http-status-codes");
 
 module.exports.getUsers = (req, res, next) => {
@@ -12,9 +13,11 @@ module.exports.getUsers = (req, res, next) => {
 module.exports.createUser = (req, res, next) => {
   const userToCreate = {
     ...req.body,
-  }
+  };
 
-  User.findOne( { $or: [ { username: userToCreate.username }, { email: userToCreate.email }]})
+  User.findOne({
+    $or: [{ username: userToCreate.username }, { email: userToCreate.email }],
+  })
     .then((user) => {
       if (user) {
         throw new Error("User already exists");
@@ -30,18 +33,23 @@ module.exports.createUser = (req, res, next) => {
 
 const getUser = (id, req, res, next) => {
   User.findById(id)
-    .then((user) => {
-      res.json(user)
+    .populate({
+      path: "likes",
+      populate: {
+        path: "post",
+      },
     })
-    .catch(next)
-}
+    .then((user) => {
+      res.json(user);
+    })
+    .catch(next);
+};
 
 module.exports.getCurrentUser = (req, res, next) => {
-  console.log(req.currentUserId)
+  console.log(req.currentUserId);
   getUser(req.currentUserId, req, res, next);
-}
+};
 
 module.exports.getUser = (req, res, next) => {
-  getUser(req.params.id, req, res, next)
-}
-
+  getUser(req.params.id, req, res, next);
+};
