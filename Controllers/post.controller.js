@@ -1,6 +1,7 @@
 const Post = require("../models/Post.model");
 const Like = require("../models/Like.model");
 const User = require("../models/User.model");
+const Comment = require("../models/Comment.model");
 
 const { StatusCodes } = require("http-status-codes");
 const createError = require("http-errors");
@@ -13,6 +14,12 @@ module.exports.getPosts = (req, res, next) => {
       path: "likes",
       populate: {
         path: "user",
+      },
+    })
+    .populate({
+      path: "comments",
+      populate: {
+        path: "post",
       },
     })
     // .exec()
@@ -88,6 +95,8 @@ module.exports.updatePost = (req, res, next) => {
     })
     .catch(next);
 };
+
+
 
 // module.exports.displayPosts = (req, res, next) => {
 //   return Post.find()

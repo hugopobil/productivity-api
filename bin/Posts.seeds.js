@@ -19,7 +19,6 @@ mongoose
       user: "65d9e33e046be78a3ac899af",
       image: "https://picsum.photos/200/300",
       createdAt: new Date(),
-      comments: [],
     };
 
     const createArrayOfJsons = (json, number) => {
