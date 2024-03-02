@@ -21,6 +21,9 @@ module.exports.getPosts = (req, res, next) => {
       populate: {
         path: "post",
       },
+      populate: {
+        path: "user",
+      },
     })
     // .exec()
     .then((posts) => {

@@ -15,10 +15,12 @@ module.exports.getComments = async (req, res, next) => {
 module.exports.commentPost = (req, res, next) => {
   const { postId } = req.params;
   const { content } = req.body;
+  const { user } = req.body;
 
     const commentToCreate = {
         content: content,
         post: postId,
+        user: user
     };
 
     Post.findById(postId)
