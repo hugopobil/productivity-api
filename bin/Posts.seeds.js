@@ -16,7 +16,7 @@ mongoose
       title: "Proyecto 1",
       content: "Hoy he dedicado 4h a trabajar en el proyecto 1",
       location: "Ironhack",
-      user: "65d9ef2724135106a854922a",
+      user: "65e32105445b4a22dcee7989",
       image: "https://picsum.photos/200/300",
       createdAt: new Date(),
     };
