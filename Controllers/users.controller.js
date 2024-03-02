@@ -15,6 +15,10 @@ module.exports.createUser = (req, res, next) => {
     ...req.body,
   };
 
+  if (req.file) {
+    userToCreate.image = req.file.path
+  }
+
   User.findOne({
     $or: [{ username: userToCreate.username }, { email: userToCreate.email }],
   })
