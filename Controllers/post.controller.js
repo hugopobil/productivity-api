@@ -99,6 +99,16 @@ module.exports.updatePost = (req, res, next) => {
     .catch(next);
 };
 
+module.exports.getPostsByUser = (req, res, next) => {
+  const { userId } = req.params;
+
+  Post.find({ user: userId })
+    .then((posts) => {
+      res.status(200).json(posts);
+    })
+    .catch(next);
+};
+
 
 
 // module.exports.displayPosts = (req, res, next) => {

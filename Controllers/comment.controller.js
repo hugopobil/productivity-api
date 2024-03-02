@@ -37,14 +37,18 @@ module.exports.commentPost = (req, res, next) => {
         .catch(next);
 };
 
-// module.exports.createComment = async (req, res, next) => {
-//     const commentToCreate = {
-//         ...req.body,
-//     };
+module.exports.deleteComment = (req, res, next) => {
+  const { commentId } = req.params;
 
-//     Comment.create(commentToCreate)
-//         .then((comment) => {
-//             res.status(201).json(comment);
-//         })
-//         .catch(next);
-// }
+  Comment.findByIdAndDelete(commentId)
+    .then((comment) => {
+      if (!comment) {
+        throw createError(
+          StatusCodes.NOT_FOUND,
+          `Comment with id ${commentId} not found`
+        );
+      }
+      res.status(204).send();
+    })
+    .catch(next);
+}

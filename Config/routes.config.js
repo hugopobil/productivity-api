@@ -22,8 +22,10 @@ router.get("/posts/:id", postController.getPost);
 router.put("/posts/:id", postController.updatePost);
 router.post("/posts/like/:postId", authMiddleware.isAuthenticated,  postController.likePost);
 router.post("/posts/:postId/comment", commentController.commentPost);
+router.get("/posts/user/:userId", postController.getPostsByUser);
 
 // comments
 router.get("/comments", commentController.getComments);
+router.delete("/posts/:commentId", commentController.deleteComment);
 
 module.exports = router;
