@@ -10,7 +10,7 @@ const { StatusCodes } = require('http-status-codes');
 
 // Base de datos
 const DB_NAME = "productivity-ddbb";
-require('./config/db.config')
+require('./Config/db.config')
 
 // Creamos la instancia de la app
 const app = express();
@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(logger('dev'));
 
 // Rutas
-const routes = require('./config/routes.config');
+const routes = require('./Config/routes.config');
 app.use('/', routes);
 
 /* Handle errors */
