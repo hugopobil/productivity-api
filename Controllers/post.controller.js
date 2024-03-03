@@ -55,6 +55,7 @@ module.exports.likePost = (req, res, next) => {
 module.exports.createPost = (req, res, next) => {
   const postToCreate = {
     ...req.body,
+    image: req.file.path
   };
   
   Post.create(postToCreate)
