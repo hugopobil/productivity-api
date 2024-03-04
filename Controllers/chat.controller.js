@@ -2,21 +2,12 @@ const Chat = require("../models/Chat.model");
 const { StatusCodes } = require("http-status-codes");
 const createError = require("http-errors");
 
-module.exports.getChats = async (req, res, next) => {
-  Chat.find()
-    .populate("messages")
-    .populate("user_1")
-    .populate("user_2")
-    .exec()
-    .then((chats) => {
-      res.status(200).json(chats);
-    })
-    .catch(next);
-};
 
 module.exports.createChat = async (req, res, next) => {
+  const { userId } = req.params;
+
   const chatToCreate = {
-    ...req.body,
+    users: [userId, req.currentUserId]
   };
 
   Chat.create(chatToCreate)
@@ -31,9 +22,7 @@ module.exports.getChat = async (req, res, next) => {
 
   Chat.findById(id)
     .populate("messages")
-    .populate("user_1")
-    .populate("user_2")
-    .exec()
+    .populate("users")
     .then((chat) => {
       if (!chat) {
         throw createError(
