@@ -6,6 +6,7 @@ const postController = require('../Controllers/post.controller');
 const commentController = require('../Controllers/comment.controller');
 const chatController = require('../Controllers/chat.controller');
 const upload = require('./storage.config');
+const messageController = require('../Controllers/message.controller')
 
 //Authentication
 router.post('/login', authController.login)
@@ -32,6 +33,15 @@ router.get("/posts/user/:userId", postController.getPostsByUser);
 router.get("/comments", commentController.getComments);
 router.delete("/posts/:commentId", commentController.deleteComment);
 
+//Messages
+router.get("/chats/:chatId/messages", authMiddleware.isAuthenticated, messageController.getMessageById)
+router.post("/chats/:chatId/messages/create", authMiddleware.isAuthenticated, messageController.createMessage);
+
+
+//Chats
+router.get("/chats/:currentUserId", chatController.getChat)
+router.get("/chats/:userId", chatController.getChat);
+router.post("/chats/:userId", authMiddleware.isAuthenticated, chatController.createChat);
 
 
 module.exports = router;

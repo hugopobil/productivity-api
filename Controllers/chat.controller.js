@@ -1,6 +1,7 @@
 const Chat = require("../models/Chat.model");
 const { StatusCodes } = require("http-status-codes");
 const createError = require("http-errors");
+const Message = require("../models/Message.model");
 
 
 module.exports.createChat = async (req, res, next) => {
