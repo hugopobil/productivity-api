@@ -49,11 +49,18 @@ const getUser = (id, req, res, next) => {
     .catch(next);
 };
 
+module.exports.getUserFromPost = (req, res, next) => {
+  const { userId } = req.params;
+  getUser(userId, req, res, next);
+};
+
 module.exports.getCurrentUser = (req, res, next) => {
   console.log(req.currentUserId);
   getUser(req.currentUserId, req, res, next);
 };
 
 module.exports.getUser = (req, res, next) => {
-  getUser(req.params.id, req, res, next);
+  const { id } = req.params;
+
+  getUser(id ? id : req.params.id, req, res, next);
 };
