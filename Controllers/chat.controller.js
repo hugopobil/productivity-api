@@ -19,19 +19,45 @@ module.exports.createChat = async (req, res, next) => {
 };
 
 module.exports.getChat = async (req, res, next) => {
-  const { id } = req.params;
+  const { chatId } = req.params;
 
-  Chat.findById(id)
+  console.log(chatId)
+
+  Chat.findById(chatId)
     .populate("messages")
     .populate("users")
     .then((chat) => {
+      console.log(chat)
       if (!chat) {
         throw createError(
           StatusCodes.NOT_FOUND,
-          `Chat with id ${id} not found`
+          `Chat with id ${chatId} not found`
         );
       }
       res.status(200).json(chat);
     })
     .catch(next);
 };
+
+module.exports.allChats = (req, res, next) => {
+  Chat.find({ users: { $in: [req.currentUserId] } })
+    .then(chats => {
+      res.json(chats)
+    })
+}; 
+
+module.exports.deleteChat = (req, res, next) => {
+  const { chatId } = req.params;
+
+  Chat.findByIdAndDelete(chatId)
+    .then((chat) => {
+      if (!chat) {
+        throw createError(
+          StatusCodes.NOT_FOUND,
+          `Comment with id ${chatId} not found`
+        );
+      }
+      res.status(204).send();
+    })
+    .catch(next);
+}

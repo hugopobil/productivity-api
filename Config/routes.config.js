@@ -37,9 +37,10 @@ router.post("/chats/:chatId/messages/create", authMiddleware.isAuthenticated, me
 
 
 //Chats
-router.get("/chats/:currentUserId", chatController.getChat)
-router.get("/chats/:userId", chatController.getChat);
+router.get("/chats/me", authMiddleware.isAuthenticated, chatController.allChats);
+router.get("/chats/:chatId", authMiddleware.isAuthenticated, chatController.getChat)
 router.post("/chats/:userId", authMiddleware.isAuthenticated, chatController.createChat);
+router.delete("/chats/:chatId/delete", authMiddleware.isAuthenticated, chatController.deleteChat); 
 
 
 module.exports = router;

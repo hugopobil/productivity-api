@@ -9,24 +9,24 @@ const chatSchema = new mongoose.Schema(
         required: true,
       }
     ],
-    messages: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Message",
-      },
-    ],
   },
   {
     timestamps: true,
     toJSON: {
+      virtuals: true,
       transform: function (doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
         delete ret.__v;
       },
     },
   }
 );
+
+chatSchema.virtual('messages', {
+  ref: 'Message',
+  localField: '_id',
+  foreignField: 'chatId',
+  justOne: false
+})
 
 const Chat = mongoose.model("Chat", chatSchema);
 
