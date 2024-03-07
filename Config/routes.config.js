@@ -16,6 +16,8 @@ router.get('/logout', authController.logout)
 router.get('/users/me', authMiddleware.isAuthenticated, usersController.getCurrentUser);
 router.get("/users", authMiddleware.isAuthenticated, usersController.getUsers);
 router.post("/users/create", upload.single('image'), usersController.createUser);
+router.get("/users/:id", usersController.getUser);
+router.get("/profile/:id", usersController.getUserFromPost);
 // router.post("/users", usersController.createUser);
 
 // post routes
