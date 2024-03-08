@@ -1,6 +1,7 @@
 const User = require("../models/User.model");
 const Like = require("../models/Like.model");
 const { StatusCodes } = require("http-status-codes");
+const { transporter, createEmailTemplate } = require('../Config/nodemailer.config');
 
 module.exports.getUsers = (req, res, next) => {
   User.find()
@@ -10,13 +11,38 @@ module.exports.getUsers = (req, res, next) => {
     .catch(next);
 };
 
+// module.exports.createUser = (req, res, next) => {
+//   const userToCreate = {
+//     ...req.body,
+//   };
+
+//   if (req.file) {
+//     userToCreate.image = req.file.path
+//   }
+
+//   User.findOne({
+//     $or: [{ username: userToCreate.username }, { email: userToCreate.email }],
+//   })
+//     .then((user) => {
+//       if (user) {
+//         throw new Error("User already exists");
+//       } else {
+//         return User.create(userToCreate);
+//       }
+//     })
+//     .then((user) => {
+//       res.status(201).json(user);
+//     })
+//     .catch(next);
+// };
+
 module.exports.createUser = (req, res, next) => {
   const userToCreate = {
     ...req.body,
   };
 
   if (req.file) {
-    userToCreate.image = req.file.path
+    userToCreate.image = req.file.path;
   }
 
   User.findOne({
@@ -26,11 +52,21 @@ module.exports.createUser = (req, res, next) => {
       if (user) {
         throw new Error("User already exists");
       } else {
-        return User.create(userToCreate);
+        return User.create({
+          ...userToCreate,
+        });
       }
     })
-    .then((user) => {
-      res.status(201).json(user);
+    .then((newUser) => {
+      // Send activation email
+      transporter.sendMail({
+        from: process.env.NODEMAILER_EMAIL,
+        to: newUser.email,
+        subject: 'Account Activation',
+        html: createEmailTemplate(newUser),
+      });
+
+      res.status(201).json(newUser);
     })
     .catch(next);
 };
@@ -63,4 +99,13 @@ module.exports.getUser = (req, res, next) => {
   const { id } = req.params;
 
   getUser(id ? id : req.params.id, req, res, next);
+};
+
+module.exports.activate = (req, res, next) => {
+  const { token } = req.params;
+  User.findOneAndUpdate({ activationToken: token }, { isActive: true }, { new: true })
+    .then((dbUser) => {
+      res.status(200).json({ message: "Account activated successfully", email: dbUser.email });
+    })
+    .catch((error) => next(error));
 };

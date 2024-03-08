@@ -16,7 +16,7 @@ mongoose
       title: "Proyecto 1",
       content: "Hoy he dedicado 4h a trabajar en el proyecto 1",
       location: "Ironhack",
-      user: "65e32105445b4a22dcee7989",
+      user: "65e8cf813f1b3c5b96d242f4",
       image: "https://picsum.photos/200/300",
       createdAt: new Date(),
     };
@@ -39,7 +39,7 @@ mongoose
         Post.insertMany(posts)
           .then((createdPosts) => {
             console.log("Posts created successfully");
-            const likesPromises = createdPosts.map(post => Like.create({ user: "65df73c118698073ad55aa4d", post: post._id}))
+            const likesPromises = createdPosts.map(post => Like.create({ user: "65e8cf813f1b3c5b96d242f4", post: post._id}))
 
             Promise.all(likesPromises)
               .then(() => {

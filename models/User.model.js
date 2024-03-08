@@ -31,6 +31,22 @@ const userSchema = new mongoose.Schema(
       required: [true, "The password is required"],
       minlength: [8, "The password must have at least 8 characters"],
     },
+
+    activationToken: {
+      type: String,
+      default: () => {
+        return (
+          Math.random().toString(36).substring(2, 15) +
+          Math.random().toString(36).substring(2, 15)
+        );
+      },
+    },
+    
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+
     image: {
       type: String,
       required: [true, "The profile image is required"],
