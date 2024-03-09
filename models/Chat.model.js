@@ -28,6 +28,13 @@ chatSchema.virtual('messages', {
   justOne: false
 })
 
+// chatSchema.virtual('users', {
+//   ref: 'User',
+//   localField: '_id',
+//   foreignField: 'chatId',
+//   justOne: false
+// })
+
 const Chat = mongoose.model("Chat", chatSchema);
 
 module.exports = Chat;
