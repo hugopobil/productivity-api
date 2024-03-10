@@ -11,6 +11,7 @@ const messageController = require('../Controllers/message.controller')
 //Authentication
 router.post('/login', authController.login)
 router.get('/logout', authController.logout)
+router.get("/activate/:token", usersController.activate)
 
 // routes
 router.get('/users/me', authMiddleware.isAuthenticated, usersController.getCurrentUser);

@@ -41,6 +41,7 @@ module.exports.getChat = async (req, res, next) => {
 
 module.exports.allChats = (req, res, next) => {
   Chat.find({ users: { $in: [req.currentUserId] } })
+    .populate("users")
     .then(chats => {
       res.json(chats)
     })

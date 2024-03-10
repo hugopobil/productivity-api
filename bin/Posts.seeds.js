@@ -40,7 +40,7 @@ mongoose
         Post.insertMany(posts)
           .then((createdPosts) => {
             console.log("Posts created successfully");
-            const likesPromises = createdPosts.map(post => Like.create({ user: "65df73c118698073ad55aa4d", post: post._id}))
+            const likesPromises = createdPosts.map(post => Like.create({ user: "65e8cf813f1b3c5b96d242f4", post: post._id}))
 
             Promise.all(likesPromises)
               .then(() => {
