@@ -14,10 +14,11 @@ mongoose
     // Generate synthetic posts
     const post = {
       title: "Proyecto 1",
-      content: "Hoy he dedicado 4h a trabajar en el proyecto 1",
-      location: "Ironhack",
+      content: "Proyecto para el desarrollo de una app movil",
+      location: "Madrid",
+      duration: 600,
       user: "65e32105445b4a22dcee7989",
-      image: "https://picsum.photos/200/300",
+      image: "https://random.imagecdn.app/500/150",
       createdAt: new Date(),
     };
 
