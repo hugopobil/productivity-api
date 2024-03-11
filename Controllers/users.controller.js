@@ -61,7 +61,7 @@ module.exports.createUser = (req, res, next) => {
       transporter.sendMail({
         from: process.env.NODEMAILER_EMAIL,
         to: newUser.email,
-        subject: 'Account Activation',
+        subject: 'Achieve It - Vaidation E-mail ✉️',
         html: createEmailTemplate(newUser),
       });
 
