@@ -42,8 +42,9 @@ router.post("/chats/:chatId/messages/create", authMiddleware.isAuthenticated, me
 //Chats
 router.get("/chats/me", authMiddleware.isAuthenticated, chatController.allChats);
 router.get("/chats/:chatId", authMiddleware.isAuthenticated, chatController.getChat)
-router.post("/chats/:userId", authMiddleware.isAuthenticated, chatController.createChat);
+router.post("/chats/create/:userId", authMiddleware.isAuthenticated, chatController.createChat);
 router.delete("/chats/:chatId/delete", authMiddleware.isAuthenticated, chatController.deleteChat); 
+router.get("/chats/getChatByUsers/:userId", authMiddleware.isAuthenticated, chatController.getChatByUsers);
 
 
 module.exports = router;

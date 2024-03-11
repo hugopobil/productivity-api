@@ -62,3 +62,13 @@ module.exports.deleteChat = (req, res, next) => {
     })
     .catch(next);
 }
+
+module.exports.getChatByUsers = (req, res, next) => {
+  const { userId } = req.params;
+
+  Chat.findOne({users: { $all: [userId, req.currentUserId]}})
+    .then(chat => {
+      res.json(chat);
+    })
+    .catch(err => next(err))
+} 
