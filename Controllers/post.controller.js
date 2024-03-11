@@ -23,7 +23,7 @@ module.exports.getPosts = (req, res, next) => {
       },
       populate: {
         path: "user",
-      },
+      }
     })
     // .exec()
     .then((posts) => {
@@ -109,6 +109,12 @@ module.exports.getPostsByUser = (req, res, next) => {
     })
     .catch(next);
 };
+
+module.exports.follow = (req, res, next) => {
+  const { id } = req.params;
+  // Your code here
+};
+
 
 
 

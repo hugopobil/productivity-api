@@ -46,4 +46,6 @@ router.post("/chats/:userId", authMiddleware.isAuthenticated, chatController.cre
 router.delete("/chats/:chatId/delete", authMiddleware.isAuthenticated, chatController.deleteChat); 
 
 
+router.post("follow/:id", authMiddleware.isAuthenticated)
+
 module.exports = router;
