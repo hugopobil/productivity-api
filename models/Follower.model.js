@@ -13,6 +13,6 @@ const followeSchema = new mongoose.Schema({
   }
 });
 
-const Like = mongoose.model('Like', likeSchema);
+const Follower = mongoose.model('Follower', likeSchema);
 
-module.exports = Like;
+module.exports = Follower;
