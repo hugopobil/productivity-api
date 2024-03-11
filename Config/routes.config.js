@@ -47,4 +47,6 @@ router.delete("/chats/:chatId/delete", authMiddleware.isAuthenticated, chatContr
 router.get("/chats/getChatByUsers/:userId", authMiddleware.isAuthenticated, chatController.getChatByUsers);
 
 
+router.post("follow/:id", authMiddleware.isAuthenticated)
+
 module.exports = router;

@@ -75,6 +75,13 @@ userSchema.virtual("likes", {
   justOne: false,
 });
 
+userSchema.virtual("followers", {
+  ref: "Follower",
+  localField: "_id",
+  foreignField: "userId",
+  justOne: false,
+});
+
 //Metodo para comparat las passwords
 
 userSchema.methods.checkPassword = function (passwordToCompare) {

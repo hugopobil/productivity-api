@@ -58,7 +58,6 @@ module.exports.createUser = (req, res, next) => {
       }
     })
     .then((newUser) => {
-      // Send activation email
       transporter.sendMail({
         from: process.env.NODEMAILER_EMAIL,
         to: newUser.email,
@@ -77,6 +76,9 @@ const getUser = (id, req, res, next) => {
       path: "likes",
       populate: {
         path: "post",
+      },
+      populate: {
+        path: "follower",
       },
     })
     .then((user) => {
@@ -97,7 +99,6 @@ module.exports.getCurrentUser = (req, res, next) => {
 
 module.exports.getUser = (req, res, next) => {
   const { id } = req.params;
-
   getUser(id ? id : req.params.id, req, res, next);
 };
 
