@@ -1,36 +1,18 @@
 const Follower = require("../models/Follower.model");
 
-module.exports.follow = (req, res, next) => {
-
-    Follower.findOne({
-        $and: [{ userId: userId }, { followerId: followerId }]
-    })
-        .then((follower) => {
-            if (follower) {
-                throw new Error("User already follows");
-            } else {
-                return Follower.create({
-                    userId: userId,
-                    followerId: followerId
-                });
-            }
-        })
-        .then((newFollower) => {
-            res.status(201).json(newFollower);
-        })
-        .catch(next);
-}
-
-module.exports.unfollow = (req, res, next) => {
-    Follower.findOneAndDelete({
-        $and: [{ userId: userId }, { followerId: followerId }]
-    })
-        .then((follower) => {
-            if (!follower) {
-                throw new Error("User does not follow");
-            } else {
-                res.status(204).json();
-            }
-        })
-        .catch(next);
-}
+// module.exports.followeUser = (req, res, next) => {
+//     Follower.findOne({ user: req.currentUserId, follower: req.params.followerId })
+//       .then((like) => {
+//         if (like) {
+//           Like.deleteOne({user: req.currentUserId, post: req.params.postId})
+//             .then(() => {
+//               res.json('like removed')
+//             })
+//         } else {
+//           Like.create({user: req.currentUserId, post: req.params.postId})
+//             .then(() => {
+//               res.json('like added')
+//             })
+//         }
+//       })
+//   };

@@ -76,11 +76,14 @@ const getUser = (id, req, res, next) => {
       path: "likes",
       populate: {
         path: "post",
-      },
-      populate: {
-        path: "follower",
-      },
+      }
     })
+    // .populate({
+    //   path: "follower",
+    //   populate: {
+    //     path: "userId",
+    //   }
+    // })
     .then((user) => {
       res.json(user);
     })

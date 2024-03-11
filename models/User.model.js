@@ -75,12 +75,12 @@ userSchema.virtual("likes", {
   justOne: false,
 });
 
-userSchema.virtual("followers", {
-  ref: "Follower",
-  localField: "_id",
-  foreignField: "userId",
-  justOne: false,
-});
+// userSchema.virtual("followers", {
+//   ref: "Follower",
+//   localField: "_id",
+//   foreignField: "user",
+//   justOne: false,
+// });
 
 //Metodo para comparat las passwords
 

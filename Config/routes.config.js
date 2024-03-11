@@ -7,6 +7,7 @@ const commentController = require('../Controllers/comment.controller');
 const chatController = require('../Controllers/chat.controller');
 const upload = require('./storage.config');
 const messageController = require('../Controllers/message.controller')
+const followeController = require('../Controllers/follower.controller')
 
 //Authentication
 router.post('/login', authController.login)
@@ -47,6 +48,6 @@ router.delete("/chats/:chatId/delete", authMiddleware.isAuthenticated, chatContr
 router.get("/chats/getChatByUsers/:userId", authMiddleware.isAuthenticated, chatController.getChatByUsers);
 
 
-router.post("follow/:id", authMiddleware.isAuthenticated)
+// router.post("follow/:id/:followerId", authMiddleware.isAuthenticated, followeController.followUser)
 
 module.exports = router;

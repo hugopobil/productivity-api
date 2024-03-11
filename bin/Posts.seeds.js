@@ -18,7 +18,7 @@ mongoose
       location: "Madrid",
       duration: 600,
       user: "65e32105445b4a22dcee7989",
-      image: "https://random.imagecdn.app/500/150",
+      image: "https://picsum.photos/200/300",
       createdAt: new Date(),
     };
 
