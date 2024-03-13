@@ -7,7 +7,7 @@ const commentController = require('../Controllers/comment.controller');
 const chatController = require('../Controllers/chat.controller');
 const upload = require('./storage.config');
 const messageController = require('../Controllers/message.controller')
-const followeController = require('../Controllers/follower.controller')
+const followsController = require('../Controllers/follow.controller')
 
 //Authentication
 router.post('/login', authController.login)
@@ -46,6 +46,13 @@ router.get("/chats/:chatId", authMiddleware.isAuthenticated, chatController.getC
 router.post("/chats/create/:userId", authMiddleware.isAuthenticated, chatController.createChat);
 router.delete("/chats/:chatId/delete", authMiddleware.isAuthenticated, chatController.deleteChat); 
 router.get("/chats/getChatByUsers/:userId", authMiddleware.isAuthenticated, chatController.getChatByUsers);
+
+// Follows
+router.post('/follows/:followedId', authMiddleware.isAuthenticated, followsController.toggleFollow);
+router.get('/following/me', authMiddleware.isAuthenticated, followsController.getCurrentUserFollowing);
+router.get('/following/:id', authMiddleware.isAuthenticated, followsController.getUserFollowing);
+router.get('/followed/me', authMiddleware.isAuthenticated, followsController.getCurrentUserFollowed);
+router.get('/followed/:id', authMiddleware.isAuthenticated, followsController.getUserFollowed);
 
 
 // router.post("follow/:id/:followerId", authMiddleware.isAuthenticated, followeController.followUser)
