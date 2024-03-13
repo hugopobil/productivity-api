@@ -11,30 +11,6 @@ module.exports.getUsers = (req, res, next) => {
     .catch(next);
 };
 
-// module.exports.createUser = (req, res, next) => {
-//   const userToCreate = {
-//     ...req.body,
-//   };
-
-//   if (req.file) {
-//     userToCreate.image = req.file.path
-//   }
-
-//   User.findOne({
-//     $or: [{ username: userToCreate.username }, { email: userToCreate.email }],
-//   })
-//     .then((user) => {
-//       if (user) {
-//         throw new Error("User already exists");
-//       } else {
-//         return User.create(userToCreate);
-//       }
-//     })
-//     .then((user) => {
-//       res.status(201).json(user);
-//     })
-//     .catch(next);
-// };
 
 module.exports.createUser = (req, res, next) => {
   const userToCreate = {
@@ -78,12 +54,6 @@ const getUser = (id, req, res, next) => {
         path: "post",
       }
     })
-    // .populate({
-    //   path: "follower",
-    //   populate: {
-    //     path: "userId",
-    //   }
-    // })
     .then((user) => {
       res.json(user);
     })
@@ -112,4 +82,18 @@ module.exports.activate = (req, res, next) => {
       res.status(200).json({ message: "Account activated successfully", email: dbUser.email });
     })
     .catch((error) => next(error));
+};
+
+module.exports.editUser = (req, res, next) => {
+  const { userId } = req.params.id;
+  const updatedUserData = req.body;
+
+  User.findByIdAndUpdate(userId, updatedUserData, { new: true })
+    .then((updatedUser) => {
+      if (!updatedUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.status(200).json(updatedUser);
+    })
+    .catch(next);
 };
