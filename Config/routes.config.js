@@ -20,6 +20,7 @@ router.get("/users", authMiddleware.isAuthenticated, usersController.getUsers);
 router.post("/users/create", upload.single('image'), usersController.createUser);
 router.get("/users/:id", usersController.getUser);
 router.get("/profile/:id", usersController.getUserFromPost);
+router.put("/editprofile/:id", authMiddleware.isAuthenticated, usersController.editUser)
 // router.post("/users", usersController.createUser);
 
 // post routes

@@ -48,7 +48,7 @@ module.exports.getUserFollowing = (req, res, next) => {
 }
 
 const getFollowersInfo = (id, req, res, next) => {
-  Follow.find({ followed: id }) // Me traigo mis following
+  Follow.find({ followed: id }) // Me traigo mis followers
     .populate('follower') // Cambio el id del followed por el objeto de verdad del usuario
     .then(follows => {
       res.json(follows.map(follow => follow.follower)); // En vez de enviar todo el objeto de follow, me mando el campo followed
