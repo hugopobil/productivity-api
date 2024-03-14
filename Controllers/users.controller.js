@@ -86,7 +86,7 @@ module.exports.activate = (req, res, next) => {
 
 module.exports.editUser = (req, res, next) => {
   const { userId } = req.params; // Asegúrate de obtener el userId correctamente
-  const updatedUserData = req.body;
+  const updatedUserData = req.body.data;
 
   User.findByIdAndUpdate(userId, updatedUserData, { new: true })
     .then((updatedUser) => {
