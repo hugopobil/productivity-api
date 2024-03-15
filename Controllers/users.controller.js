@@ -86,14 +86,10 @@ module.exports.activate = (req, res, next) => {
 
 module.exports.editUser = (req, res, next) => {
   const { userId } = req.params; // Asegúrate de obtener el userId correctamente
-  const updatedUserData = req.body.data;
+  const updatedUserData = req.body;
 
-  const userEdit = {
-    ...req.body,
-  };
-
-  if (userEdit) {
-    userToCreate.image = req.file.path;
+  if (req.file) {
+    updatedUserData.image = req.file.path;
   }
 
   User.findByIdAndUpdate(userId, updatedUserData, { new: true })
