@@ -48,6 +48,7 @@ router.get("/chats/:chatId", authMiddleware.isAuthenticated, chatController.getC
 router.post("/chats/create/:userId", authMiddleware.isAuthenticated, chatController.createChat);
 router.delete("/chats/:chatId/delete", authMiddleware.isAuthenticated, chatController.deleteChat); 
 router.get("/chats/getChatByUsers/:userId", authMiddleware.isAuthenticated, chatController.getChatByUsers);
+router.delete("/chats/:chatId/delete", authMiddleware.isAuthenticated, chatController.deleteChat);
 
 // Follows
 router.post('/follows/:followedId', authMiddleware.isAuthenticated, followsController.toggleFollow);
