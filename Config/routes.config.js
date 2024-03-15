@@ -31,6 +31,7 @@ router.put("/posts/:id", postController.updatePost);
 router.post("/posts/like/:postId", authMiddleware.isAuthenticated,  postController.likePost);
 router.post("/posts/:postId/comment", commentController.commentPost);
 router.get("/posts/user/:userId", postController.getPostsByUser);
+router.delete("/posts/delete/:id",authMiddleware.isAuthenticated, postController.deletePost);
 
 // comments
 router.get("/comments", commentController.getComments);

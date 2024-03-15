@@ -115,7 +115,21 @@ module.exports.follow = (req, res, next) => {
   // Your code here
 };
 
+module.exports.deletePost = (req, res, next) => {
+  const { id } = req.params;
 
+  Post.findByIdAndDelete(id)
+    .then((post) => {
+      if (!post) {
+        throw createError(
+          StatusCodes.NOT_FOUND,
+          `Post with id ${id} not found`
+        );
+      }
+      res.status(204).json();
+    })
+    .catch(next);
+};
 
 
 // module.exports.displayPosts = (req, res, next) => {
