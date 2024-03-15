@@ -87,6 +87,10 @@ module.exports.updatePost = (req, res, next) => {
     ...req.body, 
   };
 
+  if (req.file) {
+    postToUpdate.image = req.file.path;
+  }
+
   Post.findByIdAndUpdate(id, postToUpdate, { new: false })
     .then((post) => {
       if (!post) {

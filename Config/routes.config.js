@@ -26,8 +26,8 @@ router.put("/editprofile/:userId", upload.single('image'), authMiddleware.isAuth
 // post routes
 router.get("/posts", postController.getPosts);
 router.post("/posts/createNewPost", upload.single('image'), authMiddleware.isAuthenticated, postController.createPost);
-router.get("/posts/:id", postController.getPost);
-router.put("/posts/:id", postController.updatePost);
+router.get("/post/:id", postController.getPost);
+router.put("/posts/update/:id", upload.single('image'), authMiddleware.isAuthenticated , postController.updatePost);
 router.post("/posts/like/:postId", authMiddleware.isAuthenticated,  postController.likePost);
 router.post("/posts/:postId/comment", commentController.commentPost);
 router.get("/posts/user/:userId", postController.getPostsByUser);
