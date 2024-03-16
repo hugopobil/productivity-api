@@ -14,8 +14,10 @@ module.exports.createEmailTemplate = (user) => {
     <h1>Welcome to Achieve It 🎉</h1>
     <p>Hi ${user.username} 👋🏻, thank you for join our comunity!</p>
     <p>Click on the following link to validate your email</p>
-    <a href="http://localhost:5173/activate/${user.activationToken}" style="background-color: #1400FF;color: white;padding: 8px 12px;border-radius: 20px;text-decoration: none;">
+    <a href="https://achieveproductivity.netlify.app/activate/${user.activationToken}" style="background-color: #1400FF;color: white;padding: 8px 12px;border-radius: 20px;text-decoration: none;">
         Activate
     </a>
 </div>`;
 }
+ 
+{/* <a href="http://localhost:5173/activate/${user.activationToken}" style="background-color: #1400FF;color: white;padding: 8px 12px;border-radius: 20px;text-decoration: none;"></a> */}
