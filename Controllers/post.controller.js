@@ -108,6 +108,11 @@ module.exports.getPostsByUser = (req, res, next) => {
   const { userId } = req.params;
 
   Post.find({ user: userId })
+  .populate({
+    path: "comments",
+    populate: {
+      path: "post",
+    }})
     .then((posts) => {
       res.status(200).json(posts);
     })
